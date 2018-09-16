@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./popupAlert.css">
+</head>
+<body>
+    <div id="popupAlert"></div>
+    
+    <script src="popupAlert.js"></script>
+    <script>
+        window.onload = function(){
+            new PopupAlert('안녕하세요 alert창입니다 반갑습니다.안녕하세요 alert창입니다 반갑습니다.안녕하세요 alert창입니다 반갑습니다.안녕하세요 alert창입니다 반갑습니다. ', function(){ 
+                console.log('callback 실행1');
+            });
+            new PopupAlert('얼럿창2', function(){ 
+                console.log('callback 실행2'); 
+            });
+            new PopupAlert('얼럿창3 callback 없는 경우');
+        }
+    </script>
+</body>
+</html>
