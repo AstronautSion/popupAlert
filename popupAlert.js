@@ -3,16 +3,23 @@ function PopupAlert(msg, callback){
     this.popup          = null;
     this.cb             = null;
     this.init(msg, callback);
-    this.createPopup();
-    this.popupEvent();
+}
+PopupAlert.error = function(){
+    throw Error('new PopupAlert( string, [ function ]) ::Plz check the Type of arguments');
 }
 
 PopupAlert.prototype = {
 
     init : function(msg, callback){
+        if(typeof msg !== 'string') this.error();
+        if(callback) if(typeof callback !== 'function'){ this.error(); }
+
         this.popupParent    = document.getElementById('popupAlert');
         this.msg            = msg;
         this.cb             = callback;
+        this.createPopup();
+        this.createBtnChoice();
+        this.popupEvent();
     },
     createPopup : function(){ 
         var idx = document.querySelectorAll('.popup-alert').length;
@@ -21,6 +28,10 @@ PopupAlert.prototype = {
                             '<p class="popup-alert-text">'+this.msg+'</p>' +
                         '</div>' +
                     '</div>';   
+        this.popupParent.insertAdjacentHTML('beforeend', html);
+        this.popup = this.popupParent.querySelector('#popup-alert'+idx);
+    },
+    createBtnChoice : function(){
         var btns = null;
         if(this.cb){
             btns =  '<div class="popup-alert-btn-area type1">' + 
@@ -32,9 +43,6 @@ PopupAlert.prototype = {
                         '<button type="button" class="btn-confirm-popup-alert">확인</button>' +
                     '</div>';
         }
-
-        this.popupParent.insertAdjacentHTML('beforeend', html);
-        this.popup = this.popupParent.querySelector('#popup-alert'+idx);
         this.popup.insertAdjacentHTML('beforeend',btns);
     },
     popupEvent : function(){
