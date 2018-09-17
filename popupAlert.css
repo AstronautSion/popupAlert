@@ -1,4 +1,5 @@
 #popupAlert{
+    display:none;
     z-index:9999;
     position:fixed;
     top:0;
@@ -59,7 +60,7 @@
     width:100%;
 }
 
-.popup-alert .popup-alert-btn-area .btn-close-popup-alert{
+.popup-alert .popup-alert-btn-area .btn-cancel -popup-alert{
     background-color:#999;
     color:#fff;
 }
