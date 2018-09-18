@@ -20,7 +20,7 @@ PopupAlert.prototype = {
         var that = this;
         Array.prototype.slice.call(arguments).forEach(function(a){
             if( typeof a === 'string' ) that._msg = a; 
-            else if( typeof a === 'fuction') that._cb = a;
+            else if( typeof a === 'function') that._cb = a;
             else if( typeof a === 'number') that._btnNum = a;
         });
         
@@ -53,14 +53,14 @@ PopupAlert.prototype = {
         this._popup = this._popupParent.querySelector('#'+this._classNm.popup+idx);
     },
     createBtnChoice : function(){
-        if( this._btnNum == null ){
+        if( this._btnNum != null ){
             console.log('test');
         }
         //null = 기본상태 (2)
         //1 = 버튼 1개 콜백 0개
         //2 = 버튼 1개 콜백 1개
         //3 = 버튼 2개 콜백 1개
-
+        
         var btns = null;
         if(this._cb){
             btns =  '<div class="popup-alert-btn-area type1">' + 
