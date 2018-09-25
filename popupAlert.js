@@ -6,22 +6,24 @@ function PopupAlert(){
     this._btnNum         = null;
     this._msg            = null;
     this._cb             = null;
-    this.init(arguments);
+    this._init(arguments);
 }
-PopupAlert.error = function(){
-    throw Error('new PopupAlert( string, [ function ]) ::Plz check the Type of arguments');
-}
+
 PopupAlert.prototype = {
     
-    init : function( arguments){
+    _init : function( arguments){
 
         if(arguments.lenth > 2 ) throw Error('arguments length too many..');
         else if(arguments.lenth === 0) throw Error('plz write a letter');
-        var that = this;
-        Array.prototype.slice.call(arguments).forEach(function(a){
-            if( typeof a === 'string' ) that._msg = a; 
-            else if( typeof a === 'function') that._cb = a;
-            else if( typeof a === 'number') that._btnNum = a;
+
+        var objThis = this;
+        Array.prototype.slice.call(arguments).forEach(function(arg){
+            if( typeof arg === 'string' ) objThis._msg = arg; 
+            else if( typeof arg === 'function') objThis._cb = arg;
+            else if( typeof arg === 'number') {
+                if(arg === null || ( arg >= 0 && arg < 3 )) objThis._btnNum = arg;
+                else{ throw Error('Choice number 1 and 2'); }
+            }
         });
         
         this._popupParent    = document.getElementById('popupAlert');
@@ -32,17 +34,17 @@ PopupAlert.prototype = {
             btnCancel   : 'btn-cancel-popup-alert'
         };
        
-        this.initEvent();
-        this.createPopup();
-        this.createBtnChoice();
-        this.popupEvent();
+        this._initEvent();
+        this._createPopup();
+        this._createBtnChoice();
+        this._popupEvent();
     },
-    initEvent: function(){
+    _initEvent: function(){
         if( document.querySelectorAll('.'+this._classNm.popup).length === 0 ){
             this._popupParent.style.display = "block";
         }
     },
-    createPopup : function(){
+    _createPopup : function(){
         var idx = document.querySelectorAll('.'+this._classNm.popup).length;
         var html = '<div id="'+this._classNm.popup+idx+'" class="'+this._classNm.popup+'">' + 
                         '<div class="popup-alert-text-area">' + 
@@ -52,17 +54,9 @@ PopupAlert.prototype = {
         this._popupParent.insertAdjacentHTML('beforeend', html);
         this._popup = this._popupParent.querySelector('#'+this._classNm.popup+idx);
     },
-    createBtnChoice : function(){
-        if( this._btnNum != null ){
-            console.log('test');
-        }
-        //null = 기본상태 (2)
-        //1 = 버튼 1개 콜백 0개
-        //2 = 버튼 1개 콜백 1개
-        //3 = 버튼 2개 콜백 1개
-        
+    _createBtnChoice : function(){
         var btns = null;
-        if(this._cb){
+        if(this._btnNum === 2 ){
             btns =  '<div class="popup-alert-btn-area type1">' + 
                         '<button type="button" class="'+this._classNm.btnCancel+'">취소</button>' +
                         '<button type="button" class="'+this._classNm.btnConfirm+'">확인</button>' +
@@ -74,29 +68,30 @@ PopupAlert.prototype = {
         }
         this._popup.insertAdjacentHTML('beforeend',btns);
     },
-    popupEvent : function(){
-        var that        = this;
+    _popupEvent : function(){
+        var objThis     = this;
         var confirmBtn  = this._popup.querySelector('.'+this._classNm.btnConfirm);
         var closeBtn    = this._popup.querySelector('.'+this._classNm.btnCancel);
-        if(this._cb){
-            closeBtn.addEventListener('click', function(){ that.closePopupEvent(); });
-            confirmBtn.addEventListener('click', function(){ that.confirmPopupEvent(); });
+        
+        if(this._cb ){
+            if(closeBtn){closeBtn.addEventListener('click', function(){ objThis._closePopupEvent(); })};
+            confirmBtn.addEventListener('click', function(){ objThis._confirmPopupEvent(); });
         }else{
-            confirmBtn.addEventListener('click', function(){ that.closePopupEvent(); });
+            confirmBtn.addEventListener('click', function(){ objThis._closePopupEvent(); });
         }
     },
-    hidePopupEvent : function(){
+    _hidePopupEvent : function(){
         if( this._popupParent.querySelectorAll('.'+this._classNm.popup).length == 0 ){
             this._popupParent.style.display = 'none';
         }
     },
-    closePopupEvent: function(){
+    _closePopupEvent: function(){
         this._popup.remove();
-        this.hidePopupEvent();
+        this._hidePopupEvent();
     },
-    confirmPopupEvent: function(){
+    _confirmPopupEvent: function(){
         this._popup.remove();
-        this.hidePopupEvent();
+        this._hidePopupEvent();
         this._cb();
     }
 }

@@ -13,10 +13,15 @@
     <script src="popupAlert.js"></script>
     <script>
         window.onload = function(){
-            new PopupAlert('alert text area', function(){ 
+            new PopupAlert(2,'alert text area', function(){ 
                 console.log('callback'); 
             });
-            new PopupAlert('alert text area');
+            new PopupAlert('alert text area', function(){
+                console.log('btn1');
+            });
+            new PopupAlert('alert1');
+
+            
         }
     </script>
 </body>
