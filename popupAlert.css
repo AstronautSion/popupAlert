@@ -1,5 +1,5 @@
-#popupAlert{
-    display:none;
+#popup-alert-area{
+    display:block;
     z-index:9999;
     position:fixed;
     top:0;
@@ -44,6 +44,9 @@
 }
 
 /* popup alert button */
+.popup-alert .popup-alert-btn-area{
+    display:flex;
+}
 .popup-alert .popup-alert-btn-area button{
     border:0;
     padding:1em 0;

@@ -1,13 +1,32 @@
-# popupAlert
+# popupAlert 
 
-## 수정된 부분
-- PopupAlert arguments의 갯수 3개로 제한
-- arguments의 type에 따라 적용 ( string : alert msg ) / ( function : callback ) / ( number : button type )
-- 버튼 경우의 수 ( 1: 확인 버튼 1개 , 2: 확인 취소 버튼 2개 )
+## popupAlert
 
-## 수정할 부분
-- 객체로 옵션값 넘기기
-  1. 팝업 아이디 혹은 클래스명
-  2. 팝업 레이아웃, 버튼 클래스명
-  3. 버튼 수 옵션에 포함
-  4. 반응형 대응 pc only or mobile only 
+## Installation
+
+### HTML
+
+먼저 popupAlert.css와 popupAlert.js를 `<head>`안에 작성.
+
+```html
+    <link rel="stylesheet" href="popupAlert.css">
+    <script src="popupAlert.js"></script>
+```
+
+### JS
+
+다음으로는 new PopupAlert() 을 선언한 뒤 인자로 option 값을 넘겨줌.
+옵션값은 다음과 같다.
+1. msg: '안녕하세요.' //메세지를 string값으로 작성
+2. button: 2 // 버튼 갯수를 작성 [ 1: 1개 , 2: 2개(기본값) ]
+3. callback: 팝업 종료후 실행될 callback 함수를 작성.
+
+```javascript
+    new PopupAlert({
+        msg: 'popupAlerts', // 팝업 메세지
+        button: 2, //버튼의 갯수
+        callback: function(){
+            console.log('hihi'); // 팝업 확인 클릭시 실행
+        }
+    })
+```

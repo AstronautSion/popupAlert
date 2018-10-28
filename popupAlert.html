@@ -8,20 +8,22 @@
     <link rel="stylesheet" href="./popupAlert.css">
 </head>
 <body>
-    <div id="popupAlert"></div>
-    
     <script src="popupAlert.js"></script>
     <script>
         window.onload = function(){
-            new PopupAlert(2,'alert text area', function(){ 
-                console.log('callback'); 
+            new PopupAlert({
+                msg: '팝업얼럿입니다.',
+                button: 1,
+                
             });
-            new PopupAlert('alert text area', function(){
-                console.log('btn1');
-            });
-            new PopupAlert('alert1');
 
-            
+            new PopupAlert({
+                msg: 'popupAlerts',
+                button: 2,
+                callback: function(){
+                    console.log('hihi');
+                }
+            })
         }
     </script>
 </body>
