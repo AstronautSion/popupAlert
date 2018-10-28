@@ -15,9 +15,10 @@
 
 ### JS
 
-다음으로는 new PopupAlert() 을 선언한 뒤 인자로 option 값을 넘겨줌.
+생성자 함수 new PopupAlert()를 선언한 뒤, option 값들을 객체로 넘겨줌.
 
 ```javascript
+
     new PopupAlert({
         msg: 'popupAlerts', // 팝업 메세지
         button: 2, //버튼의 갯수
@@ -26,7 +27,7 @@
         }
     })
 ```
-옵션값은 다음과 같다.
-1. msg: '안녕하세요.' //메세지를 string값으로 작성
-2. button: 2 // 버튼 갯수를 작성 [ 1: 1개 , 2: 2개(기본값) ]
-3. callback: 팝업 종료후 실행될 callback 함수를 작성.
+option 값들은 다음과 같다.
+1. msg      : '팝업 메세지'        [ type: string, default: null ]
+2. button   : 2 *(1, 2)*          [ type: number, default: 2]
+3. callback : function(){...}   [ type: function, default: null ]
