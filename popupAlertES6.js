@@ -1,4 +1,5 @@
-function PopupAlert(option){
+class PopupAlert{
+    constructor(option){
         this.btn            = null;
         this.msg            = null;
         this.cb             = null;
@@ -6,10 +7,9 @@ function PopupAlert(option){
         this.popup          = null;
         this.className      = null;
         this.init(option);
-}
+    }
 
-PopupAlert.prototype = {
-    init : function(option){
+    init(option){
         this.popup = null;
         this.className = {
             popupParent : 'popup-alert-area',
@@ -25,40 +25,44 @@ PopupAlert.prototype = {
         this.createPopup();
         this.createBtns();
         this.popupEvent();
-    },
-
-    createParentElement : function(){
+    }
+    
+    createParentElement(){
         if( document.getElementById(this.className.popupParent) === null ) {
             document.querySelector('body').insertAdjacentHTML('beforeend', '<div id="'+this.className.popupParent+'"></div>');
         }
         this.popupParent = document.getElementById(this.className.popupParent);
-    },
+    }
 
     createPopup(){
-        var idx = this.popupParent.querySelectorAll('.'+this.className.popup).length;
-        var html = '<div id="'+this.className.popup+idx+'"class="' +this.className.popup+'">' +
-                        '<div class="popup-alert-text-area">' + 
-                            '<p class="popup-alert-text">'+this.msg+'</p>'+
-                        '</div>' +
-                    '</div>';
+        let idx = this.popupParent.querySelectorAll('.'+this.className.popup).length;
+        let html = `
+            <div id="`+this.className.popup+idx+`" class="`+this.className.popup+`">
+                <div class="popup-alert-text-area">
+                    <p class="popup-alert-text">`+this.msg+`</p>
+                </div>  
+            </div>`;
+
         this.popupParent.insertAdjacentHTML('beforeend', html );
         this.popup = this.popupParent.querySelector('#'+this.className.popup+idx);
-    },
+    }
 
-    createBtns: function(){
-        var btns = null;
-        var objthis = this;
-        var btnType1 = function(){
-            btns =  '<div class="popup-alert-btn-area type2">' +
-                        '<button type="button" class="'+objthis.className.btnConfirm+'">확인</button>' +
-                    '</div>';
+    createBtns(){
+        let btns = null;
+        let btnType1 = () => {
+            btns =  `
+                <div class="popup-alert-btn-area type2">
+                    <button type="button" class="`+this.className.btnConfirm+`">확인</button>
+                </div>`;
         };
-        var btnType2 = function(){
-            btns = '<div class="popup-alert-btn-area type1">' +
-                        '<button type="button" class="'+objthis.className.btnCancel+'">취소</button>' +
-                        '<button type="button" class="'+objthis.className.btnConfirm+'">확인</button>' +
-                    '</div>';
+        let btnType2 = () => {
+            btns =  `
+                <div class="popup-alert-btn-area type1">
+                    <button type="button" class="`+this.className.btnCancel+`">취소</button>
+                    <button type="button" class="`+this.className.btnConfirm+`">확인</button>
+                </div>`;
         };
+
         switch(this.btn){
             case 1 : 
                 btnType1();
@@ -70,32 +74,34 @@ PopupAlert.prototype = {
                 throw Error('plz choise 1 and 2');
         }
         this.popup.insertAdjacentHTML('beforeend',btns);
-    },
+    }
 
-    popupEvent: function(){
-        var objthis = this;
-        var confirmBtn  = this.popup.querySelector('.'+this.className.btnConfirm);
-        var closeBtn    = this.popup.querySelector('.'+this.className.btnCancel);
+    popupEvent(){
+        let confirmBtn  = this.popup.querySelector('.'+this.className.btnConfirm);
+        let closeBtn    = this.popup.querySelector('.'+this.className.btnCancel);
         if(this.cb ){
-            if(closeBtn){closeBtn.addEventListener('click', function(){ objthis.closePopupEvent(); })};
-            confirmBtn.addEventListener('click', function(){ objthis.confirmPopupEvent(); });
+            if(closeBtn){closeBtn.addEventListener('click', () => { this.closePopupEvent(); })};
+            confirmBtn.addEventListener('click', () => { this.confirmPopupEvent(); });
         }else{
-            confirmBtn.addEventListener('click',function(){ objthis.closePopupEvent(); });
+            confirmBtn.addEventListener('click',() => { this.closePopupEvent(); });
         }
-    },
-
-    hidePopupEvent: function(){
+    }
+    
+    hidePopupEvent(){
         if( this.popupParent.querySelectorAll('.'+this.className.popup).length == 0 ) this.popupParent.remove();
-    },
+    }
 
-    closePopupEvent: function(){
+    closePopupEvent(){
         this.popup.remove();
         this.hidePopupEvent();
-    },
+    }
 
-    confirmPopupEvent: function(){
+    confirmPopupEvent(){
         this.popup.remove();
         this.hidePopupEvent();
         this.cb();
     }
+
+
+
 }
