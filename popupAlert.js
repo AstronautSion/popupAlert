@@ -18,7 +18,7 @@ PopupAlert.prototype = {
             btnCancel   : 'btn-cancel-popup-alert'
         };
         this.msg    = option.msg;
-        this.type    = option.type || 'confirm';
+        this.type    = option.type || 'alert';
         this.cb     = option.callback;
 
         this.createParentElement();
