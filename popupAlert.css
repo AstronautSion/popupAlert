@@ -71,3 +71,13 @@
     background-color: rgb(51, 96, 179);
     color:#fff;
 }
+
+
+@media screen and (max-width:768px){
+    .popup-alert{
+        max-width:355px;
+    }
+    .popup-alert .popup-alert-text-area{
+        min-height:140px;
+    }
+}
