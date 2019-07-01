@@ -20,14 +20,23 @@
 ```javascript
 
     new PopupAlert({
+        type: 'alert', // popup type
         msg: 'popupAlerts', // 팝업 메세지
-        button: 2, //버튼의 갯수
         callback: function(){
             console.log('hihi'); // 팝업 확인 클릭시 실행
         }
     })
 ```
-option 값들은 다음과 같다.
-1. msg      : '팝업 메세지'        [ type: string, default: null ]
-2. button   : 2 *(1, 2)*          [ type: number, default: 2]
-3. callback : function(){...}   [ type: function, default: null ]
+
+
+<br>
+<br>
+
+## Option
+
+
+| 값 | 의미 | 기본값 |
+|---|---|---:|
+| `type` | 타입지정 `confirm`,`alert` | `confirm` |
+| `msg` | 팝업창 안에 들어갈 내용 |  |
+| `callback` | 팝업 확인버튼을 클릭한 후 실행되는 함수 |  |
