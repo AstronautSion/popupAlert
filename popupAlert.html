@@ -12,14 +12,13 @@
     <script>
         window.onload = function(){
             new PopupAlert({
+                type: 'alert',
                 msg: '팝업얼럿입니다.',
-                button: 1,
-                
             });
 
             new PopupAlert({
+                type:'confirm',
                 msg: 'popupAlerts',
-                button: 2,
                 callback: function(){
                     console.log('hihi');
                 }

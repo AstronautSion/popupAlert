@@ -1,5 +1,5 @@
 function PopupAlert(option){
-        this.btn            = null;
+        this.type           = null;
         this.msg            = null;
         this.cb             = null;
         this.popupParent    = null;
@@ -18,7 +18,7 @@ PopupAlert.prototype = {
             btnCancel   : 'btn-cancel-popup-alert'
         };
         this.msg    = option.msg;
-        this.btn    = option.button || 2;
+        this.type    = option.type || 'confirm';
         this.cb     = option.callback;
 
         this.createParentElement();
@@ -59,15 +59,15 @@ PopupAlert.prototype = {
                         '<button type="button" class="'+objthis.className.btnConfirm+'">확인</button>' +
                     '</div>';
         };
-        switch(this.btn){
-            case 1 : 
+        switch(this.type){
+            case 'alert' : 
                 btnType1();
                 break;
-            case 2 : 
+            case 'confirm' : 
                 btnType2();
                 break;
             default : 
-                throw Error('plz choise 1 and 2');
+                throw Error('plz choise "alert" and "confirm"');
         }
         this.popup.insertAdjacentHTML('beforeend',btns);
     },
